@@ -8,12 +8,14 @@ background: /erik-mclean-za3ADPq8mpo-unsplash.jpg
 class: "text-center"
 # https://sli.dev/custom/highlighters.html
 highlighter: shiki
+
+fonts:
+  sans: "Roboto"
+  serif: "Roboto Slab"
+  mono: "Fira Code"
 # some information about the slides, markdown enabled
 info: |
-  ## Slidev Starter Template
-  Presentation slides for developers.
-
-  Learn more at [Sli.dev](https://sli.dev)
+  React 18 SSR
 ---
 
 # React 18 给 SSR 带来的新变化
@@ -29,16 +31,6 @@ info: |
 <!--
 The last comment block of each slide will be treated as slide notes. It will be visible and editable in Presenter Mode along with the slide. [Read more in the docs](https://sli.dev/guide/syntax.html#notes)
 -->
-
----
-
-# API Change
-
-Previously, React did not support Suspense on the server at all. This is changing in React 18, but there are different levels of support depending on which API you use
-
-- 📝 renderToString: Keeps working (with limited Suspense support).
-- 🧑‍💻 renderToNodeStream: Deprecated (with full Suspense support, but without streaming).
-- 📤 pipeToNodeWritable: New and recommended (with full Suspense support and streaming).
 
 ---
 
@@ -94,6 +86,31 @@ Hydrated<mdi:arrow-right class="text-4xl text-orange-400"/>
 
 - Selective Hydration (on the client)
   > To opt into it, you’ll need to switch from <kbd>ReactDOM.render</kbd> to the new <kbd>ReactDOM.createRoot</kbd> on the client and then start wrapping parts of your app with `<suspense>`
+
+---
+
+# API 的变化
+
+> 以前 React 没有对 Suspense 的服务端支持，但在 React18 带来了一些改变，并且不同的 API 对其的支持程度有所不同
+
+<br/>
+
+- 📝 renderToString: 仍有效 (对 Suspense 提供有限支持).
+- 🧑‍💻 renderToNodeStream: 已废弃 (支持 Suspense，不没有 Streaming).
+- 📤 pipeToNodeWritable: 推荐使用 (完整支持 Suspense 和 Streaming).
+
+```js
+import * as ReactDOM from "react-dom";
+import App from "App";
+
+const container = document.getElementById("app");
+
+// Initial render.
+ReactDOM.render(<App tab="home" />, container);
+
+// During an update, React would access the root of the DOM element.
+ReactDOM.render(<App tab="profile" />, container);
+```
 
 ---
 
