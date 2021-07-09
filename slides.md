@@ -95,11 +95,23 @@ Hydrated<mdi:arrow-right class="text-4xl text-orange-400"/>
 
 <br/>
 
+## ReactDOMServer
+
 - 📝 renderToString: 仍有效 (对 Suspense 提供有限支持).
-- 🧑‍💻 renderToNodeStream: 已废弃 (支持 Suspense，不没有 Streaming).
+- 🧑‍💻 renderToNodeStream: 已废弃 (支持 Suspense，不支持 Streaming).
 - 📤 pipeToNodeWritable: 推荐使用 (完整支持 Suspense 和 Streaming).
 
-```js
+## ReactDOM
+
+- 👏 render: 仍有效 (不支持 concurrent mode)
+- 🚀 createRoot: 推荐使用 (支持 concurrent mode)
+
+<br/>
+
+---
+
+
+```js {all|6-10|all}
 import * as ReactDOM from "react-dom";
 import App from "App";
 
@@ -111,8 +123,28 @@ ReactDOM.render(<App tab="home" />, container);
 // During an update, React would access the root of the DOM element.
 ReactDOM.render(<App tab="profile" />, container);
 ```
+<div class="flex flex-col items-center">
+<mdi:arrow-down class="text-3xl text-orange-400"/>
+</div>
 
----
+```js {all|7|8-13}
+import * as ReactDOM from 'react-dom';
+import App from 'App';
+
+const container = document.getElementById('app');
+
+// Create a root.
+const root = ReactDOM.createRoot(container);
+
+// Initial render: Render an element to the root.
+root.render(<App tab="home" />);
+
+// During an update, there's no need to pass the container again.
+root.render(<App tab="profile" />);
+```
+
+
+--- 
 
 # Streaming HTML
 
