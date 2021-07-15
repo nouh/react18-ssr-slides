@@ -244,3 +244,44 @@ const Comments = lazy(() => import("./Comments.js"));
 </div>
 
 </div>
+
+---
+
+# Hydrating Can Be Interrupted
+
+  > 如果一个组件被Suspense包裹，那么它的注水过程不再阻塞浏览器响应其他的行为
+
+<br/>
+<img src="/hydrating.png" class="w-100">
+
+---
+
+# Hydrating Can Be Prioritized
+
+  > React 可以先记录下评论区的点击事件，待评论区被优先注水以后重放这个点击事件，然后再转头回去对侧边栏进行注水
+
+<br/>
+<div class="flex flex-row space-x-4 items-center">
+  <img src="/click_comments.png" class="w-60">
+  <mdi:arrow-right class="text-3xl text-orange-400"/>
+  <img src="/hydrating_comments.png" class="w-60">
+  <mdi:arrow-right  class="text-3xl text-orange-400"/>
+  <img src="/hydrating_sidebar_again.png" class="w-60">
+</div>
+
+---
+
+# Conclusion
+
+### React 18 对SSR添加了两个主要功能
+<br/>
+
+* Streaming HTML
+* Selective Hydration
+
+### 解决了三个长久的SSR问题
+<br/>
+
+* You no longer have to wait for all the data to load on the server before sending HTML
+* You no longer have to wait for all JavaScript to load to start hydrating
+* You no longer have to wait for all components to hydrate to start interacting with the page
